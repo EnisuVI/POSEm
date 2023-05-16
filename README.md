@@ -17,3 +17,4 @@ POSEm has a database of cameras, lenses and films, with the speeds and apertures
 3. The Web app will soon be working, but without the database.
 4. The database will slowly be completed with values for alot of cameras.
 5. Implementation of the DB to the website and the Python program.
+6. Implementation of Speed and Aperture modes. The user will just have to enter the aperture or speed he wants, and the program will give him the right speed or aperture.
