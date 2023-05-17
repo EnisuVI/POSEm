@@ -32,6 +32,7 @@ CREATE TABLE `users` (
   `username` char(12) NOT NULL,
   `password` char(20) NOT NULL,
   `email` text NOT NULL,
+  `is_admin` int(2) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -52,23 +53,20 @@ CREATE TABLE `cameras` (
   `id` int(11) NOT NULL PRIMARY KEY,
   `brand` int(11) NOT NULL,
   `model` int(11) NOT NULL,
-  `speeds` 
+  `speeds` int(4) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `movies`
+-- Structure de la table `lenses`
 --
 
-CREATE TABLE `movies` (
-  `id` int(11) NOT NULL,
-  `movieID` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `overview` text,
-  `poster_path` varchar(255) DEFAULT NULL,
-  `runtime` int(11) DEFAULT NULL,
-  `release_date` datetime DEFAULT NULL
+CREATE TABLE `lenses` (
+  `id` int(11) NOT NULL PRIMARY KEY,
+  `brand` int(11) NOT NULL,
+  `model` int(11) NOT NULL,
+  `apertures` int(4) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -78,11 +76,11 @@ CREATE TABLE `movies` (
 -- Structure de la table `movie_favorite_actors`
 --
 
-CREATE TABLE `movie_favorite_actors` (
+CREATE TABLE `films` (
   `id` int(11) NOT NULL,
-  `userID` int(11) NOT NULL,
-  `movieID` int(11) NOT NULL,
-  `actorID` int(11) NOT NULL
+  `brand` int(11) NOT NULL,
+  `model` int(11) NOT NULL,
+  `speed` int(4) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -91,7 +89,7 @@ CREATE TABLE `movie_favorite_actors` (
 -- Structure de la table `note_movies`
 --
 
-CREATE TABLE `note_movies` (
+CREATE TABLE `owned_cameras` (
   `id` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
   `movieID` int(11) NOT NULL,
@@ -126,7 +124,7 @@ INSERT INTO `notifications` (`id`, `userID`, `title`, `content`, `created_at`, `
 -- Structure de la table `replies`
 --
 
-CREATE TABLE `replies` (
+CREATE TABLE `owned_lenses` (
   `id` int(11) NOT NULL,
   `commentID` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
@@ -136,24 +134,13 @@ CREATE TABLE `replies` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `replies`
---
-
-INSERT INTO `replies` (`id`, `commentID`, `userID`, `content`, `reactions`, `created_at`, `updated_at`) VALUES
-(2, 1, 1, 'Test réponse', 0, '2023-04-19 16:35:22', NULL),
-(3, 1, 2, 'Test répo 44', 0, '2023-04-19 16:45:14', NULL),
-(4, 1, 2, 'Test', 0, '2023-04-19 16:57:14', NULL),
-(5, 1, 2, 'Test', 0, '2023-04-19 16:57:26', NULL),
-(6, 2, 2, 'test', 0, '2023-04-19 16:58:15', NULL);
-
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `replies_reactions`
 --
 
-CREATE TABLE `replies_reactions` (
+CREATE TABLE `used_films` (
   `id` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
   `replyID` int(11) NOT NULL,
